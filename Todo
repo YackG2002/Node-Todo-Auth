@@ -1,0 +1,11 @@
+                    MAKING APP PROCESS
+
+1- Make the Service for connexion at MongoDB Atlas with mongoose
+
+2- Import Express and others module in app.js and configure the Handlebars engine
+
+3- Create the Schemas and Models for Users & Todos
+
+4- Define the routes using the express.Router() function & models already built
+
+5- Create the generateAuthToken function
