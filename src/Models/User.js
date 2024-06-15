@@ -22,22 +22,22 @@ const userSChema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        trim: true,
         validate(v){ 
-            if(!validator.isLength(v, {min: 6, max: 50})) throw new Error('Password too short or long !')
+            if(!validator.isLength(v, {min: 6, max: 200})) throw new Error('Password too short or long !')
         }
     }, 
 
     authTokens: [{
         authToken: {
             type: String,
-            }
+            required: true
+        }
     }]
 
 })
 
 //A simple little middleware to encrypt user password in any sign in or login
-userSChema.pre('save', async ()=>{
+userSChema.pre('save', async function(){
     if(this.isModified('password')) this.password = await bcrypt.hash(this.password, 8)
 })
 //Method attached toinstance of userSchema that permit Token generation
@@ -49,13 +49,14 @@ userSChema.methods.generateAuthToken = async function(){
 }
 
 //Method attached to the Model to find a correct User when authentification
-userSChema.statics.findUser = async function(email, password){
-    const userToFind = this.findOne({"email": email})
-    if(!userToFind) throw new Error('E-mail or password are invalid')
-    const isValidPassword = await bcrypt.compare(password, userToFind.password)
-    if(!isValidPassword) throw new Error('E-mail or password are invalid')
-    return userToFind
+userSChema.statics.findUser = async (email, password) => {
+    const user = await User.findOne({email})
+    if(!user) throw new Error('E-mail or password invalid');
+    const isValidPassword = await bcrypt.compare(password, user.password)
+    if(!isValidPassword) throw new Error('E-mail or password invalid');
+    return user;
 }
+
 const User = mongoose.model('User', userSChema)
 
 module.exports = User;
