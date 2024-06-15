@@ -31,7 +31,7 @@ const userSChema = new mongoose.Schema({
     authTokens: [{
         authToken: {
             type: String,
-            required: true}
+            }
     }]
 
 })
@@ -43,7 +43,7 @@ userSChema.pre('save', async ()=>{
 //Method attached toinstance of userSchema that permit Token generation
 userSChema.methods.generateAuthToken = async function(){
     const authToken = jwt.sign({_id: this._id.toString()}, 'foo')
-    this.authTokens.push(authToken)
+    this.authTokens.push({authToken})
     await this.save();
     return authToken
 }
