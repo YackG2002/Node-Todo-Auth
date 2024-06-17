@@ -14,8 +14,16 @@ app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(usersRoutes)
 app.use(todosRoutes)
+
+app.get('/', (req, res, next) => {res.render('home', {title: 'TodoGuard'})})
+app.get('/home', (req, res, next) => {res.render('home', {title: 'TodoGuard'})})
+app.get('/login', (req, res, next) => {res.render('login', {title: 'TodoGuard'})})
+app.get('/signup', (req, res, next) => {res.render('sign', {title: 'TodoGuard'})})
+
+
 
 app.use((req, res, next) => {
     res.status(404).render('404', {title: '404 Not Found'})

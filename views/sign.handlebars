@@ -1,0 +1,36 @@
+<div class="border border-success p-2 border-opacity-10 rounded shadow-lg bg-body-tertiary">
+    <h1 class="fs-1 text fw-bolder m-4 ps-4 sigup">Sign Up</h1>
+    <div class="d-flex flex-row justify-content-evenly">
+        <div class="align-middle mt-4">
+            <form action="dashboard" method="POST" class="mb-4">
+                <div class="mb-3 d-flex flex-row gap-2">
+                    <label for="name"><img src="img/person-fill.svg" alt="name-icon"> </label>
+                    <input class="form-control p-2 form-control-plaintext bg-white" type="text" name="name" id="name" placeholder="Name">
+                </div>
+                <div class="mb-3 d-flex flex-row gap-2">
+                    <label for="email"><img src="img/envelope-fill.svg" alt="email-icon"> </label>
+                    <input class="form-control p-2 form-control-plaintext bg-white" type="text" name="email" id="email" placeholder="E-mail">
+                </div>
+                <div class="mb-3 d-flex flex-row gap-2">
+                    <label for="password"><img src="img/password.svg" alt="lock-icon"> </label>
+                    <input class="form-control p-2 form-control-plaintext bg-white" type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="mb-3 d-flex flex-row gap-2">
+                    <label for="repeatPassword"><img src="img/repeat.svg" alt="lock-icon"> </label>
+                    <input type="repeatPassword" class="form-control p-2 form-control-plaintext bg-white" name="repeatPassword" placeholder="Repeat password">
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">I agree all statements in Terms & services conditions</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-4 ms-4">Register</button>
+            </form>
+            <a href="/login">Already have an account ?</a>
+        </div>
+        <div>
+            <img src="img/signup.png" alt="desktop-image" style="height: 450px;">
+        </div>
+    </div>
+</div>

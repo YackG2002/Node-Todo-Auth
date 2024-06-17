@@ -5,11 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YackG2002/Node-Todo-Auth.git"
+    "start": "nodemon app.js",
+    "dev:css": "tailwindcss -i ./public/css/style.css -o ./dist/output.css --watch",
+    "dev": "concurrently \"npm run dev:css\" \"npm start\"",
+    "build:css": "tailwindcss -i./public/css/style.css -o./dist/output.css"
   },
   "keywords": [
     "node",
@@ -23,6 +22,7 @@
   },
   "homepage": "https://github.com/YackG2002/Node-Todo-Auth#readme",
   "dependencies": {
+    "autoprefixer": "^10.4.19",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -30,13 +30,16 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
+    "postcss": "^8.4.38",
     "postman-request": "^2.88.1-postman.34",
+    "tailwindcss": "^3.4.4",
     "validator": "^13.12.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/validator": "^13.11.10",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.1.3"
   }
 }
