@@ -5,26 +5,53 @@ const verifyAuthentication = require ('../Middlewares/verifyUserAuthentication')
 
 
 //Create a User (CREATE: POST)
-router.post('/signup', async (req, res) => {
-    const user = new User(req.body)
+router.post('/auth/signup', async (req, res) => {
+    const {name, email, password, repeatPassword} = req.body
+    if(password !== repeatPassword){
+        req.session.error = "The confirmation password don't match. Try again !!";
+        return res.redirect('/error'); 
+    }
+
+    const user = new User({name, email, password})
     try {
-        const saveUser = await user.generateAuthToken()
-        res.status(201).send({saveUser})
-        
+        await user.generateAuthToken()
+        req.session.successMessage = 'User successfully created !';
+        return res.redirect('/dashboard')   
     } catch (e) {
-        res.status(400).send(e)
+        const statusCode = e.status || 500
+        req.session.errorMessage = `${e.message}`;
+        req.session.code = statusCode
+        return res.redirect('/error')
     }
 })
+router.get('/dashboard', (req, res) => {
+    const successMessage = req.session.successMessage;
+        delete req.session.successMessage;
+        res.render( 'dashboard', {successMessage});
+});
+router.get('/error', (req, res) => {
+    if(req.session.error){
+        const error = req.session.error
+        delete req.session.error
+        return res.render('sign', {error}) 
+    }
+    const errorMessage = req.session.errorMessage;
+    delete req.session.errorMessage; 
+    const errorCode = req.session.code 
+    delete req.session.code
+    res.render('errors', { errorMessage, errorCode});
+});
 
 //Authenticate a User
-router.post('/login', async(req, res) => {
+router.post('/auth/login', async(req, res) => {
     try {
         const user = await User.findUser(req.body.email, req.body.password)
         user.generateAuthToken()
-        res.send({user})
+        req.session.successMessage = 'Successfully connected !';
+        return res.redirect('/dashboard')   
     } catch (e) {
-        console.error(e)
-        res.status(400).send(e)
+        req.session.errorMessage = `${e.message}`
+        return res.redirect('/error')
     }
 })
 
@@ -32,7 +59,7 @@ router.post('/login', async(req, res) => {
 router.get('/profile', verifyAuthentication, async (req, res) =>{
     try {
         //await user.populate('tasks').exec_populate() //Pour charger les tâches de l'utilisateur
-        res.send(req.user)
+       res.send(req.user) 
     } catch (error) {
         console.error(error)
         res.status(401).send(error)

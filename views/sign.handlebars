@@ -2,7 +2,7 @@
     <h1 class="fs-1 text fw-bolder m-4 ps-4 sigup">Sign Up</h1>
     <div class="d-flex flex-row justify-content-evenly">
         <div class="align-middle mt-4">
-            <form action="dashboard" method="POST" class="mb-4">
+            <form action="auth/signup" method="POST" class="mb-4">
                 <div class="mb-3 d-flex flex-row gap-2">
                     <label for="name"><img src="img/person-fill.svg" alt="name-icon"> </label>
                     <input class="form-control p-2 form-control-plaintext bg-white" type="text" name="name" id="name" placeholder="Name">
@@ -17,11 +17,11 @@
                 </div>
                 <div class="mb-3 d-flex flex-row gap-2">
                     <label for="repeatPassword"><img src="img/repeat.svg" alt="lock-icon"> </label>
-                    <input type="repeatPassword" class="form-control p-2 form-control-plaintext bg-white" name="repeatPassword" placeholder="Repeat password">
+                    <input type="password" class="form-control p-2 form-control-plaintext bg-white" name="repeatPassword" placeholder="Repeat password">
                 </div>
                 
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required="true">
                     <label class="form-check-label" for="exampleCheck1">I agree all statements in Terms & services conditions</label>
                 </div>
 
@@ -34,3 +34,19 @@
         </div>
     </div>
 </div>
+
+{{#if error}}
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: fixed; bottom: 0; left: 0; width:25%">
+        <svg class="bi flex-shrink-0 me-2" style="width: 14px; height: 14px; " role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <strong>{{error}}</strong> 
+        <button type="button" style="width: 14px; height: 14px;" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/if}}
+
+

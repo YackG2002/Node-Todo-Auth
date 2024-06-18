@@ -9,7 +9,11 @@
     <title>{{title}}</title>
 </head>
 
-<header>{{>header}}</header>
+<header>
+    {{#unless successMessage}}
+        {{>header}}
+    {{/unless}}
+</header>
 
 <body>
     <div  class="m-4">
