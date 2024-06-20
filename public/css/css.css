@@ -6,3 +6,77 @@
 .other-connect{
     margin-top: 60px;
 }
+
+.container {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    
+}
+.sidebar {
+    width: 20%;
+    background-color: #f5efe6;
+    padding: 20px;
+    overflow-y: auto;
+}
+.workspace {
+    width: 70%;
+    background-color:  #ffffff;
+    padding: 20px;
+    overflow-y: auto;
+}
+.separator {
+    border-left: 1px solid #ccc;
+    height: 100%;
+    margin-left: 10px;
+}
+
+h5 a{
+    text-decoration: none;   
+    color: black;
+    transition: transform 0.3s ease, background-color 0.6s ease;
+}
+
+h5 a:hover {
+    transform: scale(1.1); 
+    color: red; 
+}
+
+ul a{
+ text-decoration: none;   
+ color: black;
+ transition: transform 0.3s ease, background-color 0.6s ease;
+}
+
+ul a:hover {
+    transform: scale(1.1); 
+    background-color: #f4a261; 
+    border-radius: 8px;
+}
+
+ul a:focus {
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); 
+    background-color: #f4a261; 
+}
+
+.sidebar ul li a.active {
+    background-color: #f4a261; 
+}
+
+ul{
+    list-style-type: none;
+}
+
+.title{
+    margin-bottom: 30px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.models{
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 20px;
+    
+}
