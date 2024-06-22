@@ -15,6 +15,7 @@ router.post('/auth/signup', async (req, res) => {
     const user = new User({name, email, password})
     try {
         await user.generateAuthToken()
+        req.session.authToken = user.authTokens[user.authTokens.length -1].authToken
         req.session.successMessage = 'User successfully created !';
         return res.redirect('/dashboard')   
     } catch (e) {
@@ -24,10 +25,11 @@ router.post('/auth/signup', async (req, res) => {
         return res.redirect('/error')
     }
 })
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', verifyAuthentication, (req, res) => {
     const successMessage = req.session.successMessage;
-        delete req.session.successMessage;
-        res.render( 'dashboard', {successMessage});
+    const {name, email} = req.user
+    delete req.session.successMessage;
+    res.render( 'dashboard', {successMessage, name, email});
 });
 router.get('/error', (req, res) => {
     if(req.session.error){
@@ -47,6 +49,7 @@ router.post('/auth/login', async(req, res) => {
     try {
         const user = await User.findUser(req.body.email, req.body.password)
         user.generateAuthToken()
+        req.session.authToken = user.authTokens[user.authTokens.length -1].authToken
         req.session.successMessage = 'Successfully connected !';
         return res.redirect('/dashboard')   
     } catch (e) {
@@ -90,6 +93,7 @@ router.delete('/profile/delete', verifyAuthentication, async (req, res)=> {
     if (!req.user) return res.status(404).send('User not found');
     try {
         await User.deleteOne({ _id: req.user._id });
+        delete req.session.authToken
         res.status(200).send(req.user);
     } catch (e) { 
         console.error(e)
@@ -103,6 +107,8 @@ router.post('/profile/logout', verifyAuthentication, async (req, res) => {
             Tokens.authToken != req.authToken
         })
         const user = await req.user.save()
+        memoryCache.invalidate(req.session.authToken);
+        delete req.session.authToken
         res.send(user)
     } catch (e) {res.status(401).send(e)}
 })
@@ -112,6 +118,8 @@ router.post('/profile/logoutAll', verifyAuthentication, async (req, res) => {
     try {
             req.user.authTokens = [];
             const user = await req.user.save()
+            memoryCache.invalidate(req.session.authToken);
+            delete req.session.authToken
              res.send(user)
         }
         catch (e) {res.status(500).send(e)}
