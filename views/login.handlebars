@@ -1,10 +1,10 @@
 <div class="border border-success p-4 border-opacity-10 rounded shadow-lg bg-body-tertiary ">
     <h1 class="fs-1 text fw-bolder login" >Login</h1>
-    <div class="d-flex flex-row justify-content-evenly">
-        <div>
+    <div class="flex-none flex-row md:flex">
+        <div class="basis-1/2 m-2">
             <img src="img/login.png" alt="user-image" style="height: 450px;">
         </div>
-        <div class="align-middle mt-4">
+        <div class="basis-1/4 align-middle mt-4">
             <form action="auth/login" method="POST" >
                 <div class="mb-3 d-flex flex-row gap-2">
                     <label for="email"><img src="img/envelope-fill.svg" alt="email-icon"> </label>
@@ -20,7 +20,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-4 ms-4">Login</button>
             </form>
-            <div class="other-connect mb-4">
+            <div class="other-connect">
                 Or login with 
                 <div>
                     <a href="https://google.com" role="button" class="btn btn-danger btn-ouline-light m-2"><img src="img/google.svg" alt="google-icon"></a>

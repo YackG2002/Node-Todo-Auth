@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const navButtons = document.getElementById('navButtons');
+  
+    hamburgerMenu.addEventListener('click', function() {
+        navButtons.classList.toggle('sm:block')
+    });
+
+  
+    // Pour fermer le menu lorsque l'utilisateur clique en dehors du menu
+    window.addEventListener('click', function(e) {
+      if (!e.target.closest('#hamburger-menu')) return;
+      navButtons.classList.add('-translate-x-full');
+    });
+
+    /*********** */
     function updateTitle(title) {
         document.getElementById('currentTitle').innerText = title;
     }
@@ -43,4 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     links.forEach(function(link) {
         link.addEventListener('click', handleSidebarLinkClick);
     });*/
+
+    
+
 });
