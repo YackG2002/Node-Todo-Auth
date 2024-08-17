@@ -1,11 +1,23 @@
+
+function toggleSheet() {
+    const sheet = document.getElementById('sheet');
+    if (sheet.classList.contains('show')) {
+        sheet.classList.remove('show');
+    } else {
+        sheet.classList.add('show');
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const navButtons = document.getElementById('navButtons');
   
     hamburgerMenu.addEventListener('click', function() {
-        navButtons.classList.toggle('sm:block')
+        toggleSheet();
     });
+
+    
 
   
     // Pour fermer le menu lorsque l'utilisateur clique en dehors du menu
@@ -62,3 +74,4 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
 });
+
