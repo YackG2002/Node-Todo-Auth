@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  important: true,
-  purge: ['./views/*.handlebars','./views/**/*.handlebars', './src/**/*.{js,jsx,ts,tsx,vue,handlebars}', './public/index.html'], 
-  content: [],
+  important: true,  
+  content: ['./views/*.handlebars','./views/**/*.handlebars', './src/**/*.{js,jsx,ts,tsx,vue,handlebars}', './public/index.html'],
   theme: {
     
     screens: {
